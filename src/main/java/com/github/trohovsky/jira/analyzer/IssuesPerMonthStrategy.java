@@ -43,7 +43,14 @@ public class IssuesPerMonthStrategy implements AnalyzerStrategy {
 
 	@Override
 	public void analyze(String jqlQueryTemplate, List<String> queryParameters) {
-		final String jqlQuery = String.format(jqlQueryTemplate, queryParameters.toArray());
+		String jqlQuery = String.format(jqlQueryTemplate, queryParameters.toArray());
+		// adjust the query to correctly order the results, it's required due to creation date
+		int indexOfOrderBy = jqlQuery.indexOf("ORDER BY");
+		if (indexOfOrderBy != -1) {
+			jqlQuery = jqlQuery.substring(0, indexOfOrderBy - 1);
+		}
+		jqlQuery += " ORDER BY created ASC";
+
 		// BUG in JiraRestClient - setting of fields makes troubles
 		final SearchResult searchResult = searchRestClient.searchJql(jqlQuery, 1, 0).claim();
 
@@ -59,8 +66,13 @@ public class IssuesPerMonthStrategy implements AnalyzerStrategy {
 			monthDiff = mt.getMonths();
 		}
 		final float issuesPerMonth = (float) searchResult.getTotal() / monthDiff;
-		final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		final String firstIssueCreationDateString = formatter.format(firstIssueCreationDate.toDate());
+		final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		String firstIssueCreationDateString = null;
+		if (firstIssueCreationDate != null) {
+			firstIssueCreationDateString = formatter.format(firstIssueCreationDate.toDate());
+		} else {
+			firstIssueCreationDateString = "None";
+		}
 		System.out.println(String.format("%s %s %s %s", String.join(" ", queryParameters), searchResult.getTotal(),
 				firstIssueCreationDateString, issuesPerMonth));
 	}
