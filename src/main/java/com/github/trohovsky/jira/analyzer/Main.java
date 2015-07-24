@@ -46,8 +46,8 @@ public final class Main {
 	private static final String HELP_CMDLINE = "jira-analyzer [OPTION]... JIRA_SERVER JQL_QUERY_TEMPLATE"
 			+ " PATH_TO_PARAMETER_FILE";
 	private static final String HELP_HEADER = "Repeatitively queries a JIRA server with parametrized queries."
-			+ " The parameters are stored in a CVS file.";
-	private static final String CVS_DELIMITER = " ";
+			+ " The parameters are stored in a CSV file.";
+	private static final String CSV_DELIMITER = " ";
 
 	private static JiraRestClient restClient;
 
@@ -63,6 +63,7 @@ public final class Main {
 		options.addOption("s", true,
 				"use the strategy for querying and output, the strategy can be either 'issues_toatal' (default) or"
 						+ " 'per_month'");
+		options.addOption("d", true, "CSV delimiter");
 
 		// parsing of the command line arguments
 		final CommandLineParser parser = new DefaultParser();
@@ -86,10 +87,12 @@ public final class Main {
 			formatter.printHelp(HELP_CMDLINE, HELP_HEADER, options, null);
 			return;
 		}
+		final String csvDelimiter = (String) (cmdLine.getOptionValue('d') != null ? cmdLine.getOptionObject('d')
+				: CSV_DELIMITER);
 
 		final URI jiraServerUri = URI.create(cmdLine.getArgs()[0]);
 		final String jqlQueryTemplate = cmdLine.getArgs()[1];
-		final List<List<String>> queryParametersData = readCVSFile(cmdLine.getArgs()[2], CVS_DELIMITER);
+		final List<List<String>> queryParametersData = readCSVFile(cmdLine.getArgs()[2], csvDelimiter);
 		final String username = cmdLine.getOptionValue("u");
 		String password = cmdLine.getOptionValue("p");
 		final String strategy = cmdLine.getOptionValue("s");
@@ -137,7 +140,7 @@ public final class Main {
 		}
 	}
 
-	private static List<List<String>> readCVSFile(String filepath, String delimiter) {
+	private static List<List<String>> readCSVFile(String filepath, String delimiter) {
 		final List<List<String>> data = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
 			String line = null;

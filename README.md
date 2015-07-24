@@ -1,11 +1,11 @@
 jira-analyzer
 =============
-This tool enables you to query a JIRA server with a query you want. It queries the server repeatetively with parametrized queries. The parameters are stored in a CVS file.
+This tool enables you to query a JIRA server with a query you want. It queries the server repeatetively with parametrized queries. The parameters are stored in a CSV file.
 
 Usage
 -----
 
-1. Create a CVS file containing the parameters you will use for querying. Some examples how to create it:
+1. Create a CSV file containing the parameters you will use for querying. Some examples how to create it:
 
 ```
 wget https://camel.apache.org/components.html; grep -o '\camel-[a-z0-9-]*<' components.html | tr -d '<' | sort | uniq > components.txt
