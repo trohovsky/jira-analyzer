@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 Copyright 2015 Tomas Rohovsky
 
@@ -22,6 +23,25 @@ limitations under the License.
 
 	<name>JIRA Analyzer</name>
 	<description>A tool for querying a JIRA server</description>
+	<url>https://github.com/trohovsky/jira-analyzer/</url>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git@github.com:trohovsky/jira-analyzer.git</connection>
+		<developerConnection>scm:git:git@github.com:torhovsky/jira-analyzer.git</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/trohovsky/jira-analyzer</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/trohovsky/jira-analyzer/issues</url>
+	</issueManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,7 +56,7 @@ limitations under the License.
 		<dependency>
 			<groupId>com.atlassian.jira</groupId>
 			<artifactId>jira-rest-java-client-core</artifactId>
-			<version>2.0.0-m4</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

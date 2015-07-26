@@ -136,7 +136,7 @@ public final class Main {
 			}
 		} finally {
 			// destroy the REST client, otherwise it stucks
-			restClient.destroy();
+			restClient.close();
 		}
 	}
 

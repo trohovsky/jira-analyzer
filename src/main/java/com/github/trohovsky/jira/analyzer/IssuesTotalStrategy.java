@@ -37,7 +37,7 @@ public class IssuesTotalStrategy implements AnalyzerStrategy {
 	@Override
 	public void analyze(String jqlQueryTemplate, List<String> queryParameters) {
 		final String jqlQuery = String.format(jqlQueryTemplate, queryParameters.toArray());
-		final SearchResult searchResult = searchRestClient.searchJql(jqlQuery, 0, 0).claim();
+		final SearchResult searchResult = searchRestClient.searchJql(jqlQuery, 0, 0, null).claim();
 
 		System.out.println(String.format("%s %s", String.join(" ", queryParameters), searchResult.getTotal()));
 	}

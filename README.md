@@ -21,7 +21,7 @@ JIRA_SERVER JQL_QUERY_TEMPLATE PATH_TO_PARAMETER_FILE.
 For instance:
 
 ```
-java -jar jira-analyzer-[VERSION]-jar-with-dependencies.jar https://issues.apache.org/jira 'project=CAMEL AND text ~ "%s" ORDER BY created ASC' $SOME_PATH/modules.txt -s issues_per_month
+java -jar jira-analyzer-[VERSION]-jar-with-dependencies.jar https://issues.apache.org/jira 'project=CAMEL AND text ~ "%s"' $SOME_PATH/modules.txt -s issues_per_month
 ```
 
 Results

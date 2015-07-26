@@ -51,8 +51,8 @@ public class IssuesPerMonthStrategy implements AnalyzerStrategy {
 		}
 		jqlQuery += " ORDER BY created ASC";
 
-		// BUG in JiraRestClient - setting of fields makes troubles
-		final SearchResult searchResult = searchRestClient.searchJql(jqlQuery, 1, 0).claim();
+		// TODO JRJC-205 Problem when searching issues with 'fields' parameter set
+		final SearchResult searchResult = searchRestClient.searchJql(jqlQuery, 1, 0, null).claim();
 
 		DateTime firstIssueCreationDate = null;
 		if (searchResult.getIssues().iterator().hasNext()) {
